@@ -1,0 +1,163 @@
+  ATM interface in Java that supports common operations like checking balance, depositing money, withdrawing money, and exiting the system.
+
+import java.util.Scanner;
+
+public class ATM {
+    private double balance;
+    private Scanner scanner;
+
+    public ATM() {
+        this.balance = 0.0; // Initial balance
+        this.scanner = new Scanner(System.in);
+    }
+
+    // Method to display the ATM menu
+    public void displayMenu() {
+        System.out.println("\nWelcome to the ATM");
+        System.out.println("1. Check Balance");
+        System.out.println("2. Deposit Money");
+        System.out.println("3. Withdraw Money");
+        System.out.println("4. Exit");
+    }
+
+    // Method to check the balance
+    public void checkBalance() {
+        System.out.println("Your current balance is: $" + balance);
+    }
+
+    // Method to deposit money
+    public void deposit() {
+        System.out.print("Enter the amount to deposit: $");
+        double depositAmount = scanner.nextDouble();
+        if (depositAmount > 0) {
+            balance += depositAmount;
+            System.out.println("You have successfully deposited $" + depositAmount);
+        } else {
+            System.out.println("Invalid deposit amount. Please try again.");
+        }
+    }
+
+    // Method to withdraw money
+    public void withdraw() {
+        System.out.print("Enter the amount to withdraw: $");
+        double withdrawAmount = scanner.nextDouble();
+        if (withdrawAmount > 0 && withdrawAmount <= balance) {
+            balance -= withdrawAmount;
+            System.out.println("You have successfully withdrawn $" + withdrawAmount);
+        } else if (withdrawAmount > balance) {
+            System.out.println("Insufficient funds.");
+        } else {
+            System.out.println("Invalid withdrawal amount. Please try again.");
+        }
+    }
+
+    // Main logic for the ATM
+    public void start() {
+        boolean isRunning = true;
+
+        while (isRunning) {
+            displayMenu();
+            System.out.print("Please select an option (1-4): ");
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    checkBalance();
+                    break;
+                case 2:
+                    deposit();
+                    break;
+                case 3:
+                    withdraw();
+                    break;
+                case 4:
+                    isRunning = false; // Exit the ATM
+                    System.out.println("Thank you for using the ATM. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid option. Please select a valid option.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        ATM atm = new ATM();
+        atm.start(); // Start the ATM
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+Sample Output:
+
+Example 1:
+
+Welcome to the ATM
+1. Check Balance
+2. Deposit Money
+3. Withdraw Money
+4. Exit
+Please select an option (1-4): 1
+Your current balance is: $0.0
+
+Welcome to the ATM
+1. Check Balance
+2. Deposit Money
+3. Withdraw Money
+4. Exit
+Please select an option (1-4): 2
+Enter the amount to deposit: $100
+You have successfully deposited $100.0
+
+Welcome to the ATM
+1. Check Balance
+2. Deposit Money
+3. Withdraw Money
+4. Exit
+Please select an option (1-4): 1
+Your current balance is: $100.0
+
+Welcome to the ATM
+1. Check Balance
+2. Deposit Money
+3. Withdraw Money
+4. Exit
+Please select an option (1-4): 3
+Enter the amount to withdraw: $50
+You have successfully withdrawn $50.0
+
+Welcome to the ATM
+1. Check Balance
+2. Deposit Money
+3. Withdraw Money
+4. Exit
+Please select an option (1-4): 1
+Your current balance is: $50.0
+
+Welcome to the ATM
+1. Check Balance
+2. Deposit Money
+3. Withdraw Money
+4. Exit
+Please select an option (1-4): 4
+Thank you for using the ATM. Goodbye!
+
+Features:
+
+The ATM interface supports basic banking operations: checking balance, depositing, and withdrawing.
+
+It provides user feedback for invalid inputs or insufficient funds.
+
+The program loops until the user selects the option to exit (option 4).
+
+
+This is a simple ATM interface that could be expanded with additional features like PIN authentication, transaction history, etc.
+
