@@ -1,0 +1,70 @@
+Here is a solution in Java that follows the requirements for your number guessing game:
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessingGame {
+
+    // Method to play one round of the game
+    public static void playRound(int maxAttempts, int rangeStart, int rangeEnd) {
+        Random rand = new Random();
+        int targetNumber = rand.nextInt(rangeEnd - rangeStart + 1) + rangeStart;
+        int attempts = 0;
+        boolean hasWon = false;
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("I'm thinking of a number between " + rangeStart + " and " + rangeEnd + ". Can you guess it?");
+        
+        while (attempts < maxAttempts) {
+            System.out.print("Enter your guess: ");
+            int guess = scanner.nextInt();
+            attempts++;
+
+            if (guess == targetNumber) {
+                hasWon = true;
+                break;
+            } else if (guess > targetNumber) {
+                System.out.println("Too high!");
+            } else {
+                System.out.println("Too low!");
+            }
+
+            System.out.println("Attempts remaining: " + (maxAttempts - attempts));
+        }
+
+        if (hasWon) {
+            System.out.println("Congratulations! You've guessed the correct number in " + attempts + " attempts.");
+        } else {
+            System.out.println("Sorry! You've run out of attempts. The number was: " + targetNumber);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int totalScore = 0;  // Keeps track of the score across multiple rounds
+        boolean playAgain = true;
+        final int maxAttempts = 5;  // Maximum number of attempts for each round
+        final int rangeStart = 1;   // Starting range of the number
+        final int rangeEnd = 100;   // Ending range of the number
+
+        System.out.println("Welcome to the Number Guessing Game!");
+
+        while (playAgain) {
+            playRound(maxAttempts, rangeStart, rangeEnd);
+            
+            System.out.print("Do you want to play again? (yes/no): ");
+            String userResponse = scanner.next();
+            playAgain = userResponse.equalsIgnoreCase("yes");
+
+            if (playAgain) {
+                totalScore++; // Increment score for each round played
+            }
+        }
+
+        System.out.println("Thank you for playing! Your total score (rounds won) is: " + totalScore);
+    }
+}
+
+
+
+
